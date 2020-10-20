@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script/>
+        <description>Place to try some Jelly code </description>
+        <direct>false</direct>
+        <endpoint>x_58872_needit_Jelly Page.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<body>
+<table>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+<g:evaluate var="sdata" object="true">
+    try { 
+ var r = new sn_ws.RESTMessageV2('x_58872_needit.Fetch_samples', 'Fetch_samples');
+ r.setStringParameterNoEscape('request_id', '1234');
+
+//override authentication profile 
+//authentication type ='basic'/ 'oauth2'
+//r.setAuthenticationProfile(authentication type, profile name);
+
+//set a MID server name if one wants to run the message on MID
+r.setMIDServer('sntest');
+
+//if the message is configured to communicate through ECC queue, either
+//by setting a MID server or calling executeAsync, one needs to set skip_sensor
+//to true. Otherwise, one may get an intermittent error that the response body is null
+ r.setEccParameter('skip_sensor', true);
+
+ var response = r.execute();
+ var responseBody = response.getBody();
+ var httpStatus = response.getStatusCode();
+ var parser = new JSONParser();
+ var result = parser.parse(str);
+	result;
+}
+catch(ex) {
+ var message = ex.message;
+	message;
+}
+</g:evaluate>
+	<g:evaluate var="parent_headers" object="true">
+		sdata[0];
+	</g:evaluate>
+	<g:evaluate var="headers" object="true">
+		sdata[1];
+	</g:evaluate>
+	<g:evaluate var="data" object="true">
+		sdata[2];
+	</g:evaluate>
+	<g:breakpoint/>
+	<h2>Heading 2</h2>
+	<h3>${headers[0].getValue("docuri"}</h3>
+<j:while test="${data.next()}">
+    <tr>
+        <td style="padding:5px"> Data Row</td>
+    </tr>
+</j:while>
+</j:jelly>
+</table>
+</body>]]></html>
+        <name>Jelly Page</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-10-19 20:22:59</sys_created_on>
+        <sys_id>8bd927002fc8e010749af64ef699b690</sys_id>
+        <sys_mod_count>53</sys_mod_count>
+        <sys_name>Jelly Page</sys_name>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sys_ui_page_8bd927002fc8e010749af64ef699b690</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-10-20 15:52:48</sys_updated_on>
+    </sys_ui_page>
+</record_update>
